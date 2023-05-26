@@ -1,0 +1,18 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+      target: backend
+    volumes:
+      - type: bind
+        source: ./backend/data
+        target: /home/node/app/data
+      - ./backend/src:/home/node/app/src
+      - ./backend/nodemon.json:/home/node/app/nodemon.json
+    container_name: blitball-backend
+    expose:
+      - '5101'
+    ports:
+      - '5101:5101'
+    command: npm run dev
