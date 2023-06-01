@@ -6,19 +6,21 @@ export default class Cursor {
   x: number;
   y: number;
   z: number;
+  tileSelector: any;
   constructor(scene: any) {
     /* Init Vars */
     this.obj = null;
     this.x = 0;
     this.y = 0;
     this.z = 0;
+    this.tileSelector = null;
 
     /* Add object to Scene */
     this.obj = getLineCube(1, 1, 1, "blue");
     scene.add(this.obj);
 
     /* Add Tile Selector */
-    tileSelector = new TileSelector(this.obj);
+    manager.tileSelector = new TileSelector(this.obj);
   }
 
   setPosition(x: number, y: number, z: number) {

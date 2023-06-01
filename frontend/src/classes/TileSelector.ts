@@ -23,7 +23,7 @@ export default class TileSelector {
     }
     if (this.selectedTileIndex > -1) {
       const tile = tileList[this.selectedTileIndex];
-      const obj = getMdlByName(tiles.data, tile.mdl);
+      const obj = getMdlByName(assets.tiles.data, tile.mdl);
       obj.material = getMatByName(tile.mat);
       this.obj = obj.clone();
       this.obj.rotation.set(

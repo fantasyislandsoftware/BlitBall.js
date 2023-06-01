@@ -1,5 +1,4 @@
 import { OrbitControls } from "three-orbitcontrols-ts";
-import { tileList } from "./data/tileList";
 
 export const initEditorControls = () => {
   document.onkeydown = function (e) {
@@ -32,27 +31,27 @@ export const initEditorControls = () => {
         if (y < 0) y = 0;
         break;
       case "[":
-        tileSelector.prev();
+        manager.tileSelector.prev();
         break;
       case "]":
-        tileSelector.next();
+        manager.tileSelector.next();
         break;
       case "s":
         let index =
-          tileSelector.selectedTileIndex === -1
+          manager.tileSelector.selectedTileIndex === -1
             ? null
-            : tileSelector.selectedTileIndex;
-        map.tiles[y][z][x][0] = index;
-        map.save(currentMap);
-        map.clear();
-        map.build();
+            : manager.tileSelector.selectedTileIndex;
+        manager.map.tiles[y][z][x][0] = index;
+        manager.map.save(currentMap);
+        manager.map.clear();
+        manager.map.build();
         break;
       case "p":
-        player.setPosition(x, y, z);
-        map.player.start.x = x;
-        map.player.start.y = y;
-        map.player.start.z = z;
-        map.save(currentMap);
+        manager.player.setPosition(x, y, z);
+        manager.map.player.start.x = x;
+        manager.map.player.start.y = y;
+        manager.map.player.start.z = z;
+        manager.map.save(currentMap);
         break;
       default:
     }
@@ -61,6 +60,27 @@ export const initEditorControls = () => {
     manager.cursor.z = z;
   };
 
-  const controls = new OrbitControls(manager.camera, renderer);
+  const controls = new OrbitControls(manager.camera, app.renderer.domElement);
   controls.target.set(0, 0, 0);
+};
+
+export const initGameControls = () => {
+  var down = false;
+  document.addEventListener(
+    "keydown",
+    function () {
+      if (down) return;
+      down = true;
+
+      console.log("keydown");
+    },
+    false
+  );
+  document.addEventListener(
+    "keyup",
+    function () {
+      down = false;
+    },
+    false
+  );
 };

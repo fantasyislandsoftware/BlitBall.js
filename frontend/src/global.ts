@@ -1,30 +1,51 @@
+import { enumMode } from "./types/enums";
+import { tjsObject } from "./types/threejs";
+
+/* Delcare global variables */
 declare global {
-  var app: any;
-  var renderer: any;
-  var materials: any;
-  var tiles: any;
-  var mainScene: any;
-  var map: any;
-  var currentMap: string | undefined;
-  //var cursor: any;
-  var player: any;
-  var tileSelector: any;
-  var manager: { world: any; camera: any; cursor: any; tileContainer : any };
+  var app: {
+    renderer: any;
+    width: number | undefined;
+    height: number | undefined;
+    mode: enumMode | undefined;
+    currentMap: string | undefined;
+  };
+  var manager: {
+    mainScene: any;
+    world: tjsObject;
+    camera: any;
+    cursor: tjsObject;
+    tileSelector: any;
+    tileContainer: any;
+    map: any;
+    player: any;
+  };
+  var assets: {
+    materials: any;
+    tiles: any;
+  };
 }
-globalThis.app = undefined;
-globalThis.renderer = undefined;
-globalThis.materials = undefined;
-globalThis.tiles = undefined;
-globalThis.mainScene = undefined;
-globalThis.map = undefined;
-globalThis.currentMap = undefined;
-globalThis.player = undefined;
-//globalThis.cursor = undefined;
-globalThis.tileSelector = undefined;
+/* Assign global variables */
+globalThis.app = {
+  renderer: undefined,
+  width: window.innerWidth,
+  height: window.innerHeight,
+  mode: enumMode.game,
+  currentMap: undefined,
+};
 globalThis.manager = {
+  mainScene: undefined,
   world: undefined,
   camera: undefined,
   cursor: undefined,
+  tileSelector: undefined,
   tileContainer: undefined,
+  map: undefined,
+  player: undefined,
 };
+globalThis.assets = {
+  materials: undefined,
+  tiles: undefined,
+};
+
 export {};

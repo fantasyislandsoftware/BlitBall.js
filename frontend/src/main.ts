@@ -1,38 +1,43 @@
 import * as THREE from "three";
 import "./global.js";
 import { loadAssets } from "./functions/rig.js";
-import GameScene from "./classes/GameScene";
+import MainScene from "./classes/MainScene.js";
+import Map from "./classes/Map.js";
 import { enumMode } from "./types/enums.js";
-import EditorScene from "./classes/EditorScene.js";
-import GameMap from "./classes/Map.js";
+import { initEditorControls, initGameControls } from "./input.js";
 
-const mode: number = enumMode.editor;
-
-app = { width: window.innerWidth, height: window.innerHeight };
-
-const renderer = new THREE.WebGL1Renderer({
-  canvas: document.getElementById("app") as HTMLCanvasElement,
-});
-renderer.setSize(app.width, app.height);
+app = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+  renderer: new THREE.WebGL1Renderer({
+    canvas: document.getElementById("app") as HTMLCanvasElement,
+  }),
+  mode: enumMode.editor,
+  currentMap: "001",
+};
+app.renderer.setSize(app.width, app.height);
 
 await loadAssets();
 
-currentMap = "001";
-
-map = new GameMap();
-await map.load(currentMap);
+manager.map = new Map();
+await manager.map.load();
 //map.init();
 //map.save(currentMap);
 
-mode === enumMode.game
-  ? (mainScene = new GameScene())
-  : (mainScene = new EditorScene());
+manager.mainScene = new MainScene();
 
-map.build();
+manager.map.build();
+
+/* Controls */
+if (app.mode === enumMode.editor) {
+  initEditorControls();
+} else {
+  initGameControls();
+}
 
 const tick = () => {
-  mainScene.update();
-  renderer.render(mainScene, manager.camera);
+  manager.mainScene.update();
+  app.renderer.render(manager.mainScene, manager.camera);
   requestAnimationFrame(tick);
 };
 

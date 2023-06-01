@@ -12,24 +12,28 @@ export const initGenericScene = (scene: any) => {
   const defaultLight = getAmbientLight();
   scene.add(defaultLight);
 
-/* World container */
-scene.worldContainer = new THREE.Group();
-scene.add(scene.worldContainer);
+  /* World container */
+  scene.worldContainer = new THREE.Group();
+  scene.add(scene.worldContainer);
 
-/* Tile Container */
-scene.tileContainer = new THREE.Group();
-scene.worldContainer.add(scene.tileContainer);
-
+  /* Tile Container */
+  scene.tileContainer = new THREE.Group();
+  scene.worldContainer.add(scene.tileContainer);
 };
 
 export const loadAssets = async () => {
   /* Materials */
-  materials = new Materials();
-  const loadMaterials = materials.load();
+  assets.materials = new Materials();
+  const loadMaterials = assets.materials.load();
 
   /* Tiles */
-  tiles = new Tiles();
-  const loadTiles = tiles.load("/assets/mdl/tiles.obj");
+  assets.tiles = new Tiles();
+  const loadTiles = assets.tiles.load("/assets/mdl/tiles.obj");
 
-  return Promise.all([loadMaterials, loadTiles]);
+  const result = await Promise.all([loadMaterials, loadTiles]);
+  result.map((item) => {
+    if (!item) {
+      throw new Error("Error loading assets");
+    }
+  });
 };

@@ -50,8 +50,8 @@ export default class Map {
     }
   }
 
-  async load(name: string) {
-    const response = await fetch(`http://localhost:5101/loadMap?name=${name}`);
+  async load() {
+    const response = await fetch(`http://localhost:5101/loadMap?name=${app.currentMap}`);
     const json = await response.json();
     const { tiles, playerStart } = JSON.parse(json.data);
     console.log(playerStart);
@@ -77,14 +77,14 @@ export default class Map {
     let obj: any;
     let tileIndex: any;
     let tile: any;
-    for (let z = 0; z < map.height; z++) {
-      for (let y = 0; y < map.length; y++) {
-        for (let x = 0; x < map.width; x++) {
+    for (let z = 0; z < this.height; z++) {
+      for (let y = 0; y < this.length; y++) {
+        for (let x = 0; x < this.width; x++) {
           for (let l = 0; l < 2; l++) {
-            tileIndex = map.tiles[z][y][x][l];
+            tileIndex = this.tiles[z][y][x][l];
             if (tileIndex !== null) {
               tile = tileList[tileIndex];
-              obj = getMdlByName(tiles.data, tile.mdl);
+              obj = getMdlByName(assets.tiles.data, tile.mdl);
               if (obj) {
                 const instance = obj.clone();
                 instance.material = getMatByName(tile.mat);

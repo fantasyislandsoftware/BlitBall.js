@@ -10,7 +10,7 @@ export const getMdlByName = (parent: any, name: string) => {
 
 export const getMatByName = (name : string) => {
   let result: any = undefined;
-  materials.data.map((item: any) => {
+  assets.materials.data.map((item: any) => {
     if (item.name === name) {
       result = item;
     }

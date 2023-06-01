@@ -2,7 +2,6 @@
 import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
 import { materialList } from "../data/materialList";
 import * as THREE from "three";
-import { textureList } from "../data/textureList";
 
 export default class Materials {
   data: any;
@@ -22,5 +21,6 @@ export default class Materials {
       });
       this.data.push(mat);
     });
+    return true;
   }
 }
