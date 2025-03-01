@@ -7,3 +7,8 @@ export enum enumMapSource {
   "cache",
   "file",
 }
+
+export enum enumTileAttribute {
+  "floor",
+  "obstacle",
+}

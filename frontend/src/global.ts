@@ -5,6 +5,7 @@ import { tjsObject } from "./types/threejs";
 declare global {
   var app: {
     renderer: any;
+    deltaTime : number;
     width: number | undefined;
     height: number | undefined;
     mode: enumMode | undefined;
@@ -28,6 +29,7 @@ declare global {
 /* Assign global variables */
 globalThis.app = {
   renderer: undefined,
+  deltaTime: 0,
   width: window.innerWidth,
   height: window.innerHeight,
   mode: enumMode.game,

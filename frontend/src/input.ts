@@ -42,16 +42,16 @@ export const initEditorControls = () => {
             ? null
             : manager.tileSelector.selectedTileIndex;
         manager.map.tiles[y][z][x][0] = index;
-        manager.map.save(currentMap);
+        manager.map.save(app.currentMap);
         manager.map.clear();
         manager.map.build();
         break;
       case "p":
-        manager.player.setPosition(x, y, z);
+        manager.player.setStartPosition(x, y, z);
         manager.map.player.start.x = x;
         manager.map.player.start.y = y;
         manager.map.player.start.z = z;
-        manager.map.save(currentMap);
+        manager.map.save(app.currentMap);
         break;
       default:
     }
@@ -68,11 +68,15 @@ export const initGameControls = () => {
   var down = false;
   document.addEventListener(
     "keydown",
-    function () {
+    function (e) {
       if (down) return;
       down = true;
-
-      console.log("keydown");
+      if (e.key.toLowerCase() === "w") {
+        manager.player.moveNorth();
+      }
+      if (e.key.toLowerCase() === "s") {
+        manager.player.moveSouth();
+      }
     },
     false
   );
@@ -80,6 +84,7 @@ export const initGameControls = () => {
     "keyup",
     function () {
       down = false;
+      manager.player.stop();
     },
     false
   );

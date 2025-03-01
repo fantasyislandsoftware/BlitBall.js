@@ -29,11 +29,12 @@ export const loadAssets = async () => {
   /* Tiles */
   assets.tiles = new Tiles();
   const loadTiles = assets.tiles.load("/assets/mdl/tiles.obj");
+  
 
   const result = await Promise.all([loadMaterials, loadTiles]);
   result.map((item) => {
     if (!item) {
-      throw new Error("Error loading assets");
+      throw new Error("Error loading assets");    
     }
   });
 };
